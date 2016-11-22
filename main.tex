@@ -1,0 +1,446 @@
+%!TEX spellcheck = en_US
+%!TEX TS-options = -shell-escape
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\useoutertheme{infolines}
+
+\usecolortheme{seahorse}
+
+\input{commands.tex}
+\input{sse_commands.tex}
+
+\title{Trick or Tweak}
+\subtitle{On the (In)security of OTR's Tweaks}
+\author{Raphael Bost\inst{1,2}\and Olivier Sanders\inst{3}}
+% \institute[short]{\inst{1} Direction Générale de l'Armement - Maîtrise de l'Information \and \inst{2} Université de Rennes 1 \samelineand \inst{3} Orange Labs}
+\newcommand{\samelineand}{\qquad}
+
+
+% \institute[short]{
+%   \begin{tabular}[h]{cc}
+%       \begin{minipage}{5cm}
+% 		  \inst{1} Direction Générale de l'Armement - Maîtrise de l'Information \\
+% 	  \end{minipage}
+% 			  &
+% 	  \begin{minipage}{5cm}
+% 		  \inst{3} Orange Labs
+% 	  \end{minipage}\\
+% 				  \inst{2} Université de Rennes 1
+% 				  &
+%   \end{tabular}
+% }
+	  \institute[]{
+	    \inst{1} Direction Générale de l'Armement - Maîtrise de l'Information\\
+	  	\inst{2} Université de Rennes 1
+	  	\and
+	  	\inst{3} Orange Labs
+	  }
+\date[AC '16]{Asiacrypt 2016, Hanoi}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+\section{Presentation of OTR} % (fold)
+\label{sec:otr_presentation}
+
+	\begin{frame}
+		\frametitle{Offset Two Rounds (OTR)}
+		\begin{itemize}
+			\item CAESAR submission by K. Minematsu (Eurocrypt '14)
+			\item Inspired by OCB
+			\item Rate-1 AE
+			\item Tweakable blockcipher based
+			\item Inverse-free (only needs $E$, not $E^{-1}$)
+			\item Two rounds Feistel construction
+			\item Defined for any block size $n$.
+		\end{itemize}
+		
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Tweakable Blockcipher (TBC) [LRW02]}
+		Add a public input to a blockcipher -- the tweak -- to add variability.
+
+		\vspace{0.4cm}
+
+		\begin{block}{Block cipher (a.k.a PRP)}
+			$E_K$ is indistinguishable from a random permutation $\pi$.
+					\[
+					\P[K \rand \K : \A^{E_K(.)} \Rightarrow 1] - \P[\pi \rand \text{Perm}(n) : \A^{\pi(.)} \Rightarrow 1] \leq \negl(\lambda)
+					\]
+		\end{block}
+		
+		\vspace{0.4cm}
+		\begin{block}{Tweakable Blockcipher (a.k.a tweakable PRP)}
+		The $T \in \mathcal{T}$ indexed permutation family $\tE_K(T,.)$ is indistinguishable from a random permutation family $\pi(T,.)$
+		\[
+		\P[K \rand \K : \A^{\tE_K(.,.)} \Rightarrow 1] - \P[\tpi \rand \text{Perm}(\mathcal{T},n) : \A^{\tpi(.,.)} \Rightarrow 1] \leq \negl(\lambda)
+		\]
+		\end{block}
+		
+	\end{frame}
+	
+	
+\def\crossoffset{0.8cm}
+
+	\begin{frame}
+		\frametitle{OTR Encryption (1/2)}
+				\begin{center}
+					\begin{tikzpicture}[
+						scale=1,
+						node distance=1.8cm,
+						line width = 0.5pt,
+					]
+						\input{figs/OTR_core_tweak.tex}
+					\end{tikzpicture}
+				\end{center}		
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{OTR Encryption (2/2)}
+				\begin{center}
+
+						\input{figs/OTR_core2_tweak.tex}
+				\end{center}		
+	\end{frame}
+
+
+	\begin{frame}
+		\frametitle{OTR's security}
+		\begin{theorem}[{Theorem 3 of [Min14]}]
+			If $\tE$ is a tweakable PRP, OTR is CPA-secure (privacy) and INT-CTXT-secure (authenticity).
+		\end{theorem}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{OTR's security: Privacy}
+				\begin{center}
+					\begin{tikzpicture}[
+						scale=1,
+						node distance=1.8cm,
+						line width = 0.5pt,
+					]
+						\input{figs/OTR_first_tweak.tex}
+					\end{tikzpicture}
+				\end{center}		
+	\end{frame}
+	
+% section otr_presentation (end)
+
+\section{OTRv2's flaw} % (fold)
+\label{sec:otrv2_s_flaw}
+
+
+	\begin{frame}
+		\frametitle{Instantiating the TBC}
+
+		\begin{alertblock}{Remark}
+			We are working in $\F_{2^n}$ represented as $\F_2[X]/P(X)$ with $P$ is a degree $n$ primitive polynomial in $\F_2$.
+		\end{alertblock}
+
+	    \begin{columns}
+	     \column{.8\textwidth}
+	\begin{itemize}
+		\item Use the XE construction
+	
+		\item In {[Rog04]}: $\tE^{N,i,j}_{K}(M) = E_K(M + X^i (X+1)^j \delta)$ with $\delta = E_K(N)$
+		
+		
+	\end{itemize}
+	     \column{.2\textwidth}
+					\begin{tikzpicture}[
+						scale=1,
+						node distance=1.8cm,
+						line width = 0.5pt,
+					]
+						\input{figs/XE.tex}
+					\end{tikzpicture}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Instantiating the TBC}
+
+		\begin{alertblock}{Remark}
+			We are working in $\F_{2^n}$ represented as $\F_2[X]/P(X)$ with $P$ is a degree $n$ primitive polynomial in $\F_2$.
+		\end{alertblock}
+
+	    \begin{columns}
+	     \column{.8\textwidth}
+		 
+		 In OTRv1-v2 {[Min14]}, for efficiency, an other masking scheme is used:
+		 % \begin{align*}
+		 %    		 	\tE^{N,i,b}_{K}(M) &= E_K(M + (X^{i+1} + b) \delta) \\
+		 %    		 	\tE^{*,N,i,b_1,b_2}_{K}(M) &= E_K(M + [(X+1)X^{\ell+1} + X\cdot b_1 +b_1 +b_2]\delta) \\
+		 % \end{align*}
+		 \begin{align*}
+   		 	\Delta^{N}_{i,b} &= (X^{i+1} + b) \delta \\
+   		 	\Delta^{*,N}_{\ell,b_1,b_2} &= [(X+1)X^{\ell+1} + X\cdot b_1 +b_1 +b_2]\delta \\
+		 \end{align*}
+
+	     \column{.2\textwidth}
+					\begin{tikzpicture}[
+						scale=1,
+						node distance=1.8cm,
+						line width = 0.5pt,
+					]
+						\input{figs/XE.tex}
+					\end{tikzpicture}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{The flaw}
+
+		\begin{lemma}[{Lemma 1 of [Min14]}]
+			The TBC is indistinguishable from a tweakable PRP.
+		\end{lemma}
+		The proof of this lemma relies on the following claim
+		\begin{block}{Claim}
+		\begin{align*}
+		\mbox{Let }\mathcal{S}_1(\delta) = & \left\{X^{i+1}\delta, (X^{i+1} +1)\delta,\right\} \\
+		 &\tab \cup \left\{ (X^{i+2} + X^{i+1} + b_1 X + b_2)\delta \right\}_{i=1, b_1 \in \zeon, b_2 \in \zeon} 
+		\end{align*}
+		The elements of $\mathcal{S}_1(\delta)$
+		are pairwise different.
+		\end{block}
+	
+		\begin{alertblock}{Our attack}<2->
+			This is not true in general!
+		\end{alertblock}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{The trick}
+
+		\begin{itemize}
+			\item In [Rog04], for $\log_X (X+1) = \alpha$, as long as $0 \leq i + \alpha j \leq 2^{n}-1$, $\{X^i (X+1)^j\}$ are pairwise distinct 
+			\\ \tab $\Rightarrow$ bound $i$ and $j$.
+			
+			\item<2-> In [Min14], we cannot show that, for some $q$ elements are pairwise distinct in 
+				\[
+				\left\{X^{i+1}, X^{i+1} +1 \right\} \cup \left\{ X^{i+2} + X^{i+1} + b_1 X + b_2\right\}_{1\leq i \leq q, (b_1,b_2) \in \zeon^2}.
+				\]
+		
+			\item<3-> If $P(X) = X^n + X^j + 1$, there is a collision between $X^n$ and $X^j + 1$ in $\F_{2^n} = \F_2[X]/P(X)$.
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{For actual block sizes ($n = 64, 128$)?}
+
+		\begin{itemize}
+			\item If $8 | n$, $\F_{2^n} = \F_2[X]/P(X)$ with $P$ with at least 5 non-zero coefficient ($P(X) = X^n + X^{j_1} + X^{j_2} + X^{j_3} +1$).
+			\\ \tab $\Rightarrow$ no immediate collisions in general.
+			
+			\item<2-> For SW/HW efficiency, we usually choose $P$ such that its non-zero coefficients are close to each other, preferably in the least significant bytes.
+			\begin{align*}
+				P_{64}(X) &= X^{64}+X^4+X^3+X+1 \\
+				P_{128}(X) &= X^{128}+X^{7}+X^{2}+X+1
+			\end{align*}
+			
+			\item<3-> For $n = 64$ with the usual $P$, we have a collision of the type $X^i = X^{j+1} + X^j + X + 1$ :
+			 \[
+			 X^{64} = X^4+X^3+X+1
+			 \]
+		\end{itemize}
+		
+	\end{frame}
+
+% section otrv2_s_flaw (end)
+
+
+\section{Consequences} % (fold)
+\label{sec:consequences}
+
+	\begin{frame}
+		\frametitle{Consequences}
+
+		\begin{alertblock}{Problem}
+There is a flaw in the proof of OTR, even for practical parameters.
+		\end{alertblock}
+
+\vspace{0.4cm}
+
+Does the confidentiality of OTR break?
+
+Does the unforgeability of OTR break?
+
+
+		% \begin{itemize}
+		% 	\item There is a flaw in the proof, even for practical parameters.
+		%
+		% 	\item Does the confidentiality of OTR fall?
+		%
+		% 	\item Does the unforgeability of OTR fall?
+		%
+		% \end{itemize}
+		
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Typology of collisions}
+
+		We can encounter three types of collision among the tweaks' polynomials:
+		\begin{align}
+			X^i &= X^j + 1 \\
+			X^i & = X^{j+1} + X^j + r(x) \\
+			X^{i+1} + X^i & = X^{j+1} + X^j + r(x)
+		\end{align}
+		with $r(X) \in \{0, 1, X, X+1\}$.
+	
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Attacks}
+
+		\begin{block}{Out attack}
+		\begin{description}
+			\item[Type 1 ($X^i = X^j + 1$)] \ \\
+			Break confidentiality \emph{and} unforgeability.   
+			\item[Type 2 ($X^i  = X^{j+1} + X^j + r(x)$)] \ \\ Break confidentiality if $i < j$. Break unforgeability o/w.   
+			\item[Type 3 ($X^{i+1} + X^i  = X^{j+1} + X^j + r(x)$)]  \ \\
+			Break unforgeability.   
+		\end{description}
+		\end{block}
+
+		Idea: use the collision to have relations between block cipher's inputs and create collisions on the outputs.
+		
+		Only \emph{one} query to the encryption oracle, with a message of $\max(i,j)$ blocks.
+	\end{frame}
+
+
+% section consequences (end)
+
+\section{Practical security for $n = 128$.} % (fold)
+\label{sec:practical_security_for_n_128}
+
+
+	\begin{frame}
+		\frametitle{$n = 128$ in practice}
+
+		Usually, for $n = 128$, we choose
+		\[
+			P(X) = X^{128}+X^{7}+X^{2}+X+1.
+		\]
+		There is no trivial collision. 
+		\begin{block}{Remark}
+			This is not true for all irreducible $P$ of degree $128$.\\
+			Ex: $P(X)=X^{128}+X^{127}+X^{61}+X^{60}+1$
+		\end{block}
+		
+		Can we find a collision among tweaks polynomial?
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{In search for lost collision}
+
+		\begin{itemize}
+			\item We are only interested in collisions with $i$ and $j < 2^{64}$: the security proof of OTR only holds up to the birthday bound.
+			
+			\item<2-> We cannot find such collisions by constructing a collision in $\F_{2^{64}}$ and then `moving' it to $\F_{2^{128}}$.
+			
+			\item<3-> Our only hope: exhaustive search. 
+			
+			\item<4-> Generate, sort and match tweak polynomials (Embarrassingly parallelizable).
+			
+			\item<5-> Problem: requires $O(n 2^n)$ memory and $O(n 2^n)$ time ...
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{In search for lost collision}
+
+
+
+We used time/memory tradeoffs to search for any collision with $i, j < 2^{45}$.
+
+		\begin{theorem}
+			There is no collision among the tweaks polynomials for $i, j < 2^{45}$ when $F_{2^{128}}$ is defined as $F_2[X]/X^{128}+X^{7}+X^{2}+X+1$.
+		\end{theorem}
+		
+		The exhaustive search took 15 CPU-years using 3TB of RAM.
+
+
+		\begin{exampleblock}{Question}<2->
+			What about $2^{45} \geq i, j$ ?
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Probable collision before the birthday bound}
+
+		\begin{itemize}
+			\item If tweak polynomials behaved like random polynomials, we should have a collision just before the birthday bound.
+			
+			\item For $n = 32, 64$, we enumerated the irreducible polynomials over $\F_2$ of degree $n$ and search for the lowest degree colliding polynomials.
+		\end{itemize}
+		
+	\end{frame}
+
+
+
+	\begin{frame}
+		\frametitle{First collision for $n=32$}
+		
+		\centering
+		\scalebox{0.8}{
+			\input{plots/cairo_32.tikz}
+			}
+	\end{frame}
+	\begin{frame}
+		\frametitle{First collision for $n=64$}
+		
+		\centering
+		\scalebox{0.8}{
+			\input{plots/cairo_64.tikz}
+			}
+	\end{frame}
+
+
+	\begin{frame}
+		\frametitle{Conjecture for $n=128$}
+		
+		\begin{block}{Conjecture}
+			There is no collision among the tweaks polynomials for $i, j < 2^{60}$ when $F_{2^{128}}$ is defined as $F_2[X]/X^{128}+X^{7}+X^{2}+X+1$.
+		\end{block}
+	\end{frame}
+
+% section practical_security_for_n_128 (end)
+
+\section*{Conclusion} % (fold)
+\label{sec:conclusion}
+
+	\begin{frame}
+		\frametitle{Conclusion}
+		
+		\begin{itemize}
+			\item OTRv2 is insecure for many block sizes.
+			\item OTRv2 is for $n = 128$ when the message length is limited to $2^{45}$ blocks.
+			\item OTRv2 is probably secure for $n = 128$ almost up to the birthday bound.
+			\item OTRv3 fixes the issue.
+		\end{itemize}
+	\end{frame}
+
+
+	\begin{frame}
+
+		\begin{center}
+			{\Large Thank you!}
+			
+			\vspace{1cm}
+			Paper: \href{http://ia.cr/2016/234}{ia.cr/2016/234}
+		\end{center}
+	\end{frame}
+	
+% section conclusion (end)
+
+
+\end{document}

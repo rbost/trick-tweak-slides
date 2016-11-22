@@ -1,0 +1,52 @@
+\begin{tikzpicture}[gnuplot]
+%% generated with GNUPLOT 5.0p3 (Lua 5.2; terminal rev. 99, script rev. 100)
+%% Ven 19 aoû 20:01:38 2016
+\path (0.000,0.000) rectangle (13.000,6.000);
+\gpcolor{color=gp lt color border}
+\node[gp node right,rotate=30] at (0.803,0.982) {$4 < d \leq 5$};
+\node[gp node right,rotate=30] at (1.947,0.982) {$5 < d \leq 6$};
+\node[gp node right,rotate=30] at (3.092,0.982) {$6 < d \leq 7$};
+\node[gp node right,rotate=30] at (4.236,0.982) {$7 < d \leq 8$};
+\node[gp node right,rotate=30] at (5.380,0.982) {$11 < d \leq 12$};
+\node[gp node right,rotate=30] at (6.524,0.982) {$12 < d \leq 13$};
+\node[gp node right,rotate=30] at (7.668,0.982) {$13 < d \leq 14$};
+\node[gp node right,rotate=30] at (8.812,0.982) {$14 < d \leq 15$};
+\node[gp node right,rotate=30] at (9.957,0.982) {$15 < d \leq 16$};
+\node[gp node right,rotate=30] at (11.101,0.982) {$16 < d \leq 17$};
+\gpsetlinetype{gp lt border}
+\gpsetdashtype{gp dt solid}
+\gpsetlinewidth{1.00}
+\draw[gp path] (0.460,1.320)--(11.444,1.320);
+\gpfill{rgb color={0.678,0.847,0.902}} (0.517,1.320)--(1.090,1.320)--(1.090,1.608)--(0.517,1.608)--cycle;
+\gpcolor{rgb color={0.000,0.000,0.000}}
+\draw[gp path] (0.517,1.320)--(0.517,1.607)--(1.089,1.607)--(1.089,1.320)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (1.661,1.320)--(2.234,1.320)--(2.234,1.378)--(1.661,1.378)--cycle;
+\draw[gp path] (1.661,1.320)--(1.661,1.377)--(2.233,1.377)--(2.233,1.320)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (5.094,1.320)--(5.667,1.320)--(5.667,1.436)--(5.094,1.436)--cycle;
+\draw[gp path] (5.094,1.320)--(5.094,1.435)--(5.666,1.435)--(5.666,1.320)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (6.238,1.320)--(6.811,1.320)--(6.811,1.551)--(6.238,1.551)--cycle;
+\draw[gp path] (6.238,1.320)--(6.238,1.550)--(6.810,1.550)--(6.810,1.320)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (7.382,1.320)--(7.955,1.320)--(7.955,2.815)--(7.382,2.815)--cycle;
+\draw[gp path] (7.382,1.320)--(7.382,2.814)--(7.954,2.814)--(7.954,1.320)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (8.526,1.320)--(9.099,1.320)--(9.099,5.345)--(8.526,5.345)--cycle;
+\draw[gp path] (8.526,1.320)--(8.526,5.344)--(9.098,5.344)--(9.098,1.320)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (9.671,1.320)--(10.244,1.320)--(10.244,4.684)--(9.671,4.684)--cycle;
+\draw[gp path] (9.671,1.320)--(9.671,4.683)--(10.243,4.683)--(10.243,1.320)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (10.815,1.320)--(11.388,1.320)--(11.388,1.838)--(10.815,1.838)--cycle;
+\draw[gp path] (10.815,1.320)--(10.815,1.837)--(11.387,1.837)--(11.387,1.320)--cycle;
+\gpcolor{color=gp lt color border}
+\node[gp node center] at (0.803,1.895) {10};
+\node[gp node center] at (1.947,1.665) {2};
+\node[gp node center] at (3.092,1.607) {0};
+\node[gp node center] at (4.236,1.607) {0};
+\node[gp node center] at (5.380,1.722) {4};
+\node[gp node center] at (6.524,1.837) {8};
+\node[gp node center] at (7.668,3.102) {52};
+\node[gp node center] at (8.812,5.631) {140};
+\node[gp node center] at (9.957,4.970) {117};
+\node[gp node center] at (11.101,2.125) {18};
+\draw[gp path] (0.460,1.320)--(11.444,1.320);
+%% coordinates of the plot area
+\gpdefrectangularnode{gp plot 1}{\pgfpoint{0.460cm}{1.320cm}}{\pgfpoint{11.444cm}{5.631cm}}
+\end{tikzpicture}
+%% gnuplot variables

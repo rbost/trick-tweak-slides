@@ -1,0 +1,49 @@
+%!TEX root = ../main.tex
+
+\tikzstyle{GW}=[draw,rectangle,minimum height=2em,inner sep=3pt,thin]
+\tikzstyle{SW}=[draw,rectangle,minimum height=1.25em,inner sep=1pt,thin]
+\tikzstyle{XOR}=[inner sep=0pt]
+
+	% \begin{scope}
+	% 	\node (N) {$N$};
+	% 	\node[SW,below=0.4cm of N] (p) {pad};
+	% 	\node[GW,below = 0.4cm of p] (e) {$E_{K}$};
+	% 	\node[below = 0.4cm of e] (delta) {$\delta$};
+	%   		\node[SW, below = 0.4cm of delta] (mult) {$\times x^2$};
+	%   		\node[ below = 0.4cm of mult] (L) {$L$};
+	%
+	% 	\draw[->] (N) -- (p);
+	% 	\draw[->] (p) -- (e);
+	% 	\draw[->] (e) -- (delta);
+	% 	\draw[->] (delta) -- (mult);
+	% 	\draw[->] (mult) -- (L);
+	%
+	% \end{scope}
+
+	\begin{scope}
+		\node (m1) {$M[1]$};
+		\node[ right=3cm of m1.west] (m2) {$M[2]$};
+
+		\node[GW,below right=0.5cm and 1cm of m1.south] (e1) {$\tE^{N,1,0}_{K}$};	
+		\node[XOR] at (e1 -| m2) (x1) {$\bigoplus$};
+		\node[GW,below=1.3cm of e1] (e2) {$\tE^{N,1,1}_{K}$};	
+		\node[XOR] at (e2 -| m2) (x2) {$\bigoplus$};
+		\node[below=4cm of m1] (c1) {$C[0]$};
+		\node[ below=4cm of m2] (c2) {$C[1]$};
+
+		\draw[->]  (m1) |- (e1);
+		\draw (m2) -- (x1);  	
+		\draw (e1) -- (x1);
+%
+%		\draw (e2 -| m2) -- (m1 |- e1);
+		\draw let \p3 = (e2 -| m2) in (m1 |- e1) -- ++(0,-\crossoffset) -- (\x3,\y3+\crossoffset)  -- (x2);
+%		
+		\draw let \p1 = (m1 |- e2),\p2 = (e2),\p3 = (x1) in (x1) -- ++(0,-\crossoffset) -- (\x1,\y1+\crossoffset)  -- (c1);
+%  			
+		\draw[->] (m1 |- e2) -- (e2);
+		\draw (e2) -- (x2);
+%
+ 		\draw (x2) -- (c2);  	
+
+	\end{scope}
+  

@@ -1,0 +1,32 @@
+%!TEX root = ../main.tex
+\input{figs/OTR_first_tweak.tex}
+%
+	\node at (4.3,-2.75) {$\dots\dots$};
+%  
+
+	\begin{scope}[xshift=5.5cm]
+		\node (m1) {$M[2\ell-3]$};
+		\node[ right=3cm of m1.west] (m2) {$M[2\ell-2]$};
+
+		\node[GW,below right=0.5cm and 1cm of m1.south] (e1) {$\tE^{N,\ell-1,0}_{K}$};	
+		\node[XOR] at (e1 -| m2) (x1) {$\bigoplus$};
+		\node[GW,below=1.3cm of e1] (e2) {$\tE^{N,\ell-1,1}_{K}$};	
+		\node[XOR] at (e2 -| m2) (x2) {$\bigoplus$};
+		\node[below=4cm of m1] (c1) {$C[2\ell-3]$};
+		\node[ below=4cm of m2] (c2) {$C[2\ell-2]$};
+
+		\draw[->]  (m1) |- (e1);
+		\draw (m2) -- (x1);  	
+		\draw (e1) -- (x1);
+%
+		\draw let \p3 = (e2 -| m2) in (m1 |- e1) -- ++(0,-\crossoffset) -- (\x3,\y3+\crossoffset)  -- (x2);
+%		
+		\draw let \p1 = (m1 |- e2),\p2 = (e2),\p3 = (x1) in (x1) -- ++(0,-\crossoffset) -- (\x1,\y1+\crossoffset)  -- (c1);
+%  			
+		\draw[->] (m1 |- e2) -- (e2);
+		\draw (e2) -- (x2);
+%
+ 		\draw (x2) -- (c2);  	
+
+	\end{scope}
+ 

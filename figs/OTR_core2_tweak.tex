@@ -1,0 +1,120 @@
+%!TEX root = main.tex
+\tikzstyle{GW}=[draw,rectangle,minimum height=2em,inner sep=3pt,thin]
+\tikzstyle{SW}=[draw,rectangle,minimum height=1.25em,inner sep=1pt,thin]
+\tikzstyle{XOR}=[inner sep=0pt]
+\tikzstyle{vert}=[inner sep=0pt,text width=1pt]
+	
+
+
+\begin{tabular}{ccc}
+% \begin{tabular}{p{15em}p{15em}p{8em}}
+\centering{if $m$ is even}  & \centering{if $m$ is odd} & Tag\\
+
+\begin{tikzpicture}[
+				scale=1,
+				node distance=1.8cm,
+				line width = 0.5pt,
+			]
+	
+	\begin{scope}
+		\node (m1) {$M[m-1]$};
+		\node[ right=3.5cm of m1.west] (m2) {$M[m]$};
+		\node[GW,below right=0.5cm and -0.4cm of m1] (e1) {$\tE^{N,\ell,0}_{K}$};	
+		\node[SW,right=0.2cm of e1] (msb) {$\mathtt{msb}$};
+		\node[XOR] at (e1 -| m2) (x1) {$\bigoplus$};
+				
+		\node[SW, below=1.5cm of e1.west] (p1) {$\mathtt{pad}$};
+		\node[GW,right=0.5cm of p1] (e2) {$\tE^{N,\ell,1}_{K}$};	
+		\node[XOR] at (e2 -| m2) (x2) {$\bigoplus$};
+				
+%
+		\node[below=4cm of m1] (c1) {$C[m-1]$};
+		\node[below=4cm of m2] (c2) {$C[m]$};
+%
+%		% \draw[edge] let \p1 = (m1),\p2 = (e1) in (m1) -- (\x1,\y2)  -- (e1);
+		\draw[->]  (m1) |- (e1);
+		\draw (m2) -- (x1);
+		  \draw[->] (e1) -- (msb);
+		\draw (msb) -- (x1);
+%
+%		\draw (e2 -| m2) -- (m1 |- e1);
+		\draw let \p3 = (e2 -| m2) in (m1 |- e1) -- ++(0,-0.7*\crossoffset) -- (\x3,\y3+0.7*\crossoffset)  -- (x2);
+%		
+		\draw let \p1 = (m1 |- e2),\p2 = (e2),\p3 = (x1) in (x1) -- ++(0,-0.7*\crossoffset) -- (\x1,\y1+0.7*\crossoffset) -- (m1 |- e2);
+%  			
+
+		\draw[->] (m1 |- e2) -- (p1);
+		\draw[->] (p1) -- (e2);
+		\draw (e2) -- (x2);
+%
+
+		\draw let \p1 = (c1) in (x2) -- ++(0,-0.5cm)  -- (\x1,\y1+0.75cm) -- (c1);		
+		\draw let \p1 = (c2),\p2 = (m1 |- e2),\p3 = (x2) in (m1 |- e2) -- ++(0,-0.5cm)  -- (\x1,\y1+0.75cm) -- (c2);
+
+	\end{scope}
+
+		\end{tikzpicture}
+& 
+\begin{tikzpicture}[
+				scale=1,
+				node distance=1.8cm,
+				line width = 0.5pt,
+			]
+	
+	\begin{scope}
+		\node (m1) {$M[m]$};
+		\node [left = 1cm of m1](zero) {$0^n$};
+		\node[GW,below=1cm of zero] (e1) {$\tE^{N,\ell,1}_{K}$};	
+		\node[SW,below=1cm of e1] (msb) {$\mathtt{msb}$};	
+
+		\node[XOR] (x0) at (msb -| m1) {$\bigoplus$};
+
+		\node[below=4cm of m1] (c1) {$C[m]$};
+	
+%
+%		% \draw[edge] let \p1 = (m1),\p2 = (e1) in (m1) -- (\x1,\y2)  -- (e1);
+		\draw[->] (e1) -- (msb);	
+		\draw (msb) -- (x0);
+		\draw (m1) -- (x0);
+		\draw (x0) -- (c1);
+		\draw[->] (zero) -- (e1);
+		
+	\end{scope}
+		\end{tikzpicture}
+		
+&
+		
+\begin{tikzpicture}[
+				scale=1,
+				node distance=1.8cm,
+				line width = 0.5pt,
+			]
+	
+	\begin{scope}
+		\node (m1) {$\Sigma$};
+		\node[GW,below=1cm of m1] (e1) {$\tE^{*,N,\ell,b_1,b_2}_{K}$};	
+		\node[below=3cm of m1] (c1) {$T$};
+		
+%
+%		% \draw[edge] let \p1 = (m1),\p2 = (e1) in (m1) -- (\x1,\y2)  -- (e1);
+		\draw[->] (m1) -- (e1);
+		\draw (e1) -- (c1);
+		
+	\end{scope}
+		\end{tikzpicture}		
+		
+\\
+
+\scriptsize{ $\begin{aligned}
+\Sigma = M[2] \oplus \ldots &\oplus M[m-2] \\&\oplus Z \oplus \underline{C[m]}\end{aligned}
+$} & 
+\scriptsize{
+$\begin{aligned}
+	\Sigma = M[2] \oplus \ldots &\oplus M[m-1] \\ &\oplus \underline{M[m]}
+\end{aligned}
+$% $\Sigma = M[2] \oplus \ldots \oplus M[m-1] \oplus \underline{M[m]}$
+}
+
+\end{tabular}
+	
+

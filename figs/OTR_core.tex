@@ -1,0 +1,113 @@
+%!TEX root = OTR.tex
+\tikzstyle{GW}=[draw,rectangle,minimum height=2em,inner sep=3pt,thin]
+\tikzstyle{SW}=[draw,rectangle,minimum height=1.25em,inner sep=1pt,thin]
+\tikzstyle{XOR}=[inner sep=0pt]
+
+	\begin{scope}
+		\node (N) {$N$};
+		\node[SW,below=0.4cm of N] (p) {pad};	
+		\node[GW,below = 0.4cm of p] (e) {$E_{K}$};
+		\node[below = 0.4cm of e] (delta) {$\delta$};
+  		\node[SW, below = 0.4cm of delta] (mult) {$\times x^2$};
+  		\node[ below = 0.4cm of mult] (L) {$L$};
+		
+		\draw[->] (N) -- (p);
+		\draw[->] (p) -- (e);
+		\draw[->] (e) -- (delta);
+		\draw[->] (delta) -- (mult);
+		\draw[->] (mult) -- (L);
+
+	\end{scope}
+
+	\begin{scope}[xshift=2 cm]
+		\node (m1) {$M[1]$};
+		\node[ right=2.1cm of m1] (m2) {$M[2]$};
+		\node[XOR, below right=1cm and -0.1cm of m1] (x0) {$\bigoplus$};
+		\node[XOR,above = 0.2cm of x0] (Delta) {$\Delta_{1,0}$};
+		% \node[AE_E,below right=0.4cm and 0.7cm of m1] (e1) {$E_{K}^{N,0,0}$};	
+		\node[GW,right=0.6cm of x0] (e1) {$E_{K}$};	
+		\node[XOR] at (e1 -| m2) (x1) {$\bigoplus$};
+%
+  		\draw (Delta) -- (x0);  	
+		
+		\node[XOR,above = 0.3cm of e1] (te1) {$\tE^{N,1,0}_{K}$};
+		\node[draw,dotted,fit=(e1) (x0) (Delta) (te1)] {};
+%
+		\node[XOR, below=2cm  of x0] (x0) {$\bigoplus$};
+		\node[GW,right=0.6cm of x0] (e2) {$E_{K}$};	
+		\node[XOR,above = 0.2cm of x0] (Delta) {$\Delta_{1,1}$};
+		
+		\node[XOR,below = 0.3cm of e2] (te2) {$\tE^{N,1,1}_{K}$};
+		\node[draw,dotted,fit=(e2) (x0) (Delta) (te2)] {};
+		
+		\node[XOR] at (e2 -| m2) (x2) {$\bigoplus$};
+%
+		\node[below=4cm of m1] (c1) {$C[0]$};
+%		% \node[AE_ctx,below = 4.5cm of m1] (c1) {$C_{0}$};
+		\node[ below=4cm of m2] (c2) {$C[1]$};
+  		\draw (Delta) -- (x0);  	
+%
+%		% \draw[edge] let \p1 = (m1),\p2 = (e1) in (m1) -- (\x1,\y2)  -- (e1);
+		\draw[->]  (m1) |- (e1);
+		\draw (m2) -- (x1);  	
+		\draw (e1) -- (x1);
+%
+%		\draw (e2 -| m2) -- (m1 |- e1);
+		\draw let \p3 = (e2 -| m2) in (m1 |- e1) -- ++(0,-\crossoffset) -- (\x3,\y3+\crossoffset)  -- (x2);
+%		
+		\draw let \p1 = (m1 |- e2),\p2 = (e2),\p3 = (x1) in (x1) -- ++(0,-\crossoffset) -- (\x1,\y1+\crossoffset)  -- (c1);
+%  			
+		\draw[->] (m1 |- e2) -- (e2);
+		\draw (e2) -- (x2);
+%
+ 		\draw (x2) -- (c2);  	
+
+	\end{scope}
+  
+%
+	\node at (6.25,-2.7) {$\dots\dots$};
+%  
+
+	\begin{scope}[xshift=7.5cm]
+		\node (m1) {$M[2\ell-3]$};
+		\node[ right=1.7cm of m1] (m2) {$M[2\ell-2]$};
+		\node[XOR, below right=1cm and -0.3cm of m1] (x0) {$\bigoplus$};
+		\node[XOR,above = 0.2cm of x0] (Delta) {$\Delta_{\ell-1,0}$};
+		% \node[AE_E,below right=0.4cm and 0.7cm of m1] (e1) {$E_{K}^{N,0,0}$};	
+		\node[GW,right=0.6cm of x0] (e1) {$E_{K}$};	
+		\node[XOR] at (e1 -| m2) (x1) {$\bigoplus$};
+%
+		\node[XOR,above = 0.3cm of e1] (te1) {$\tE^{N,\ell-1,0}_{K}$};
+		\node[draw,dotted,fit=(e1) (x0) (Delta) (te1)] {};
+
+  		\draw (Delta) -- (x0);  	
+%
+		\node[XOR, below=2cm  of x0] (x0) {$\bigoplus$};
+		\node[GW,right=0.6cm of x0] (e2) {$E_{K}$};	
+		\node[XOR,above = 0.2cm of x0] (Delta) {$\;\Delta_{\ell-1,1}$};
+		\node[XOR,below = 0.3cm of e2] (te2) {$\tE^{N,\ell-1,1}_{K}$};
+		\node[draw,dotted,fit=(e2) (x0) (Delta) (te2)] {};
+		
+		\node[XOR] at (e2 -| m2) (x2) {$\bigoplus$};
+%
+		\node[below=4cm of m1] (c1) {$C[2\ell-3]$};
+%		% \node[AE_ctx,below = 4.5cm of m1] (c1) {$C_{0}$};
+		\node[ below=4cm of m2] (c2) {$C[2\ell-2]$};
+		% \node[ right=1.5cm of c1] (c2) {$C[2\ell-2]$};
+  		\draw (Delta) -- (x0);  	
+%
+		\draw[->]  (m1) |- (e1);
+		\draw (m2) -- (x1);  	
+		\draw (e1) -- (x1);
+%
+		\draw let \p3 = (e2 -| m2) in (m1 |- e1) -- ++(0,-\crossoffset) -- (\x3,\y3+\crossoffset)  -- (x2);
+%		
+		\draw let \p1 = (m1 |- e2),\p2 = (e2),\p3 = (x1) in (x1) -- ++(0,-\crossoffset) -- (\x1,\y1+\crossoffset)  -- (c1);
+%  			
+		\draw[->] (m1 |- e2) -- (e2);
+		\draw (e2) -- (x2);
+%
+ 		\draw (x2) -- (c2);  	
+
+	\end{scope}
+ 

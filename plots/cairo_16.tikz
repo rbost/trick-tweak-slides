@@ -1,0 +1,36 @@
+\begin{tikzpicture}[gnuplot]
+%% generated with GNUPLOT 5.0p3 (Lua 5.2; terminal rev. 99, script rev. 100)
+%% Ven 19 aoû 20:01:38 2016
+\path (0.000,0.000) rectangle (7.000,6.000);
+\gpcolor{color=gp lt color border}
+\node[gp node right,rotate=30] at (0.807,0.798) {$4 \leq d \leq 5$};
+\node[gp node right,rotate=30] at (1.965,0.798) {$5 < d \leq 6$};
+\node[gp node right,rotate=30] at (3.122,0.798) {$6 < d \leq 7$};
+\node[gp node right,rotate=30] at (4.279,0.798) {$7 < d \leq 8$};
+\node[gp node right,rotate=30] at (5.437,0.798) {$8 < d \leq 9$};
+\gpsetlinetype{gp lt border}
+\gpsetdashtype{gp dt solid}
+\gpsetlinewidth{1.00}
+\draw[gp path] (0.460,1.136)--(5.784,1.136);
+\gpfill{rgb color={0.678,0.847,0.902}} (0.518,1.136)--(1.098,1.136)--(1.098,1.407)--(0.518,1.407)--cycle;
+\gpcolor{rgb color={0.000,0.000,0.000}}
+\draw[gp path] (0.518,1.136)--(0.518,1.406)--(1.097,1.406)--(1.097,1.136)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (1.675,1.136)--(2.255,1.136)--(2.255,2.845)--(1.675,2.845)--cycle;
+\draw[gp path] (1.675,1.136)--(1.675,2.844)--(2.254,2.844)--(2.254,1.136)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (2.833,1.136)--(3.412,1.136)--(3.412,3.564)--(2.833,3.564)--cycle;
+\draw[gp path] (2.833,1.136)--(2.833,3.563)--(3.411,3.563)--(3.411,1.136)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (3.990,1.136)--(4.570,1.136)--(4.570,5.003)--(3.990,5.003)--cycle;
+\draw[gp path] (3.990,1.136)--(3.990,5.002)--(4.569,5.002)--(4.569,1.136)--cycle;
+\gpfill{rgb color={0.678,0.847,0.902}} (5.147,1.136)--(5.727,1.136)--(5.727,1.317)--(5.147,1.317)--cycle;
+\draw[gp path] (5.147,1.136)--(5.147,1.316)--(5.726,1.316)--(5.726,1.136)--cycle;
+\gpcolor{color=gp lt color border}
+\node[gp node center] at (0.807,1.675) {3};
+\node[gp node center] at (1.965,3.114) {19};
+\node[gp node center] at (3.122,3.833) {27};
+\node[gp node center] at (4.279,5.271) {43};
+\node[gp node center] at (5.437,1.586) {2};
+\draw[gp path] (0.460,1.136)--(5.784,1.136);
+%% coordinates of the plot area
+\gpdefrectangularnode{gp plot 1}{\pgfpoint{0.460cm}{1.136cm}}{\pgfpoint{5.784cm}{5.631cm}}
+\end{tikzpicture}
+%% gnuplot variables

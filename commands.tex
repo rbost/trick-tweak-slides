@@ -1,0 +1,480 @@
+%!TEX root = main.tex
+
+% Use utf-8 encoding for foreign characters
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+% \usepackage{times}
+% \usepackage{enumitem, framed}
+\usepackage{color}
+% \usepackage{tikz,tabularx}
+\usepackage{graphicx}
+\usepackage{stmaryrd}
+% \usepackage{mathtools}
+% \usepackage{epstopdf}
+
+% \usepackage[shell]{gnuplottex}
+
+% For protocols typesetting
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage[]{algpseudocode}
+\newcommand{\algsep}{\begin{center}\rule{\textwidth}{0.4pt}\end{center}}
+
+\usepackage{fancybox}
+
+\usepackage{float}
+
+\newfloat{protocol}{tbph}{lop}
+\floatname{protocol}{Protocol}
+
+% New 'keywords' for algorithmicx
+\newcommand{\InputA}[1]{\State \textbf{Input A:} #1}
+\newcommand{\InputB}[1]{\State \textbf{Input B:} #1}
+\newcommand{\OutputA}[1]{\State \textbf{Output A:} #1}
+\newcommand{\OutputB}[1]{\State \textbf{Output B:} #1}
+\algnewcommand\algorithmicto{\textbf{to}}
+\algrenewtext{For}[3]%
+  {\algorithmicfor\ $#1 = #2$ \algorithmicto\ $#3$ \algorithmicdo}
+
+\algblockdefx[IFRED]{IfRed}{EndIfRed}
+	[1]{\red{\algorithmicif\ {#1}}}
+   	[0]{\red{\algorithmicend\ \algorithmicif}}
+
+\algcblockx{IFRED}{ElseRed}{EndIfRed}
+	[0]{\red{\algorithmicelse\ }}
+	[0]{\red{\algorithmicend\ \algorithmicif}}
+   
+\algblockdefx[FORALLRED]{ForAllRed}{EndForRed}
+   [1]{\red{\algorithmicforall\ {#1}}}
+   [0]{\red{\algorithmicend\ \algorithmicfor}}
+
+\algloopdefx[SMALLIF]{SmallIf}
+	[1]{\algorithmicif\ {#1}}   
+   
+\algloopdefx[SMALLIFRED]{SmallIfRed}
+	[1]{\red{\algorithmicif\ {#1}}}  
+	 
+\newcommand{\IfLine}[1]{\State \algorithmicif\ {#1}}   
+\newcommand{\ElseLine}{\State \algorithmicelse\ }   
+\newcommand{\IfLineRed}[1]{\State \red{\algorithmicif\ {#1}}}   
+  
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
+
+\algrenewcommand\algorithmicindent{1.0em}%
+\algrenewcommand\alglinenumber[1]{\scriptsize #1:}
+\algrenewcommand{\algorithmiccomment}[1]{\hfill\hspace{.2cm} $\triangleright$\ \textit{#1}}
+
+
+
+% requires amsthm, enumitem
+% \theoremstyle{algorithms}
+% \newtheorem{construction}{Algorithm}
+% \newcommand{\ALGORITHM}[4]{%  name, llabel, intro, \items
+%   \begin{construction}[#1]\label{#2} \mbox{}
+%   \normalfont\noindent
+%   #3
+%   \vspace{0.13\baselineskip}
+%   \begin{enumerate}[noitemsep,nolistsep]\itemsep=0.1\baselineskip
+%   #4
+%   \end{enumerate}
+%   \end{construction}
+% }
+
+%%%%%%%%%%%%  Defining theorem-like environments %%%%%%%%%%
+
+% \ifnotvldb
+
+\usepackage{amsthm}
+\newtheorem*{rep@theorem}{\rep@title}
+\newcommand{\newreptheorem}[2]{%
+\newenvironment{rep#1}[1]{%
+ \def\rep@title{#2 \ref{##1}}%
+ \begin{rep@theorem}}%
+ {\end{rep@theorem}}}
+\makeatother
+% \fi
+
+% \newtheorem{theorem}{Theorem}
+
+% \ifnotvldb
+\newreptheorem{theorem}{Theorem}
+% \fi
+
+\newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{informaltheorem}[theorem]{Theorem}
+% \newtheorem{informalcorollary}[theorem]{Corollary}
+% \newtheorem{informalclaim}[theorem]{Claim}
+% %\newtheorem{definition}{Definition}[section]
+% \ifvldb
+% \newdef{definition}{Definition}
+% \else
+% \newtheorem{definition}{Definition}
+% \fi
+% \newtheorem{claim}[theorem]{Claim}
+% \newtheorem{remark}{Remark}[section]
+% \newtheorem{remark}[theorem]{Remark}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{fact}[theorem]{Fact}
+% \newtheorem{assumption}{Assumption}
+
+\frenchspacing
+
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage{url,array,epsfig}
+% \usepackage[pageanchor=false,colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=black]{hyperref}
+
+\newcommand{\remove}[1]{}
+\newcommand{\ignore}[1]{}
+
+%% For gorgeous subfigures
+\usepackage{caption}
+\captionsetup{justification=justified,labelfont=bf,labelsep=endash}
+% \usepackage{subcaption}
+\usepackage{dblfloatfix}                 
+
+% \setlength{\belowcaptionskip}{-.5cm}
+
+
+\usepackage{multicol}
+
+%% for the code %%
+\usepackage{listings}
+\lstset{language=c++}
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  % frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+\lstset{escapechar=@,style=customc}
+
+%% For footnotes in tables
+% \usepackage{footnote}
+% \makesavenoteenv{tabular}
+% \makesavenoteenv{table}
+% \makesavenoteenv{table*}
+\usepackage{multirow}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{fit}
+
+\usepackage{gnuplot_sty/gnuplot-lua-tikz}
+
+\usepackage{boxedminipage}
+
+
+
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+
+%Security Parameter
+\newcommand{\secparam}{\kappa}
+\newcommand{\secp}{\secparam}
+
+
+% Emphasis in theorems
+\newcommand{\emphth}[1]{{\rm\sf {#1}}}
+
+% Changing QED symbol in claim proofs
+%\newenvironment{claimproof}{\begin{IEEEproof}
+%\renewcommand{\qedsymbol}{{$\blacksquare$}}
+%}{\end{IEEEproof}}
+
+
+% Fixing bug in citations inside of brackets.
+\newcommand{\brafix}[1]{[{#1}]}
+\newcommand{\citefix}[2]{{\cite[#1]{#2}}}
+
+% Math operators (from Raphael)
+\DeclareMathOperator*{\argmax}{argmax}
+\newcommand{\llb}{\llbracket}
+\newcommand{\rrb}{\rrbracket}
+\newcommand{\bb}[1]{\llbracket #1 \rrbracket}
+\newcommand{\bbb}[1]{[\hspace{-1.5pt}\llbracket #1 \rrbracket\hspace{-1.5pt}]}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Calligraphic shortcuts.
+
+\def\cA{{\cal A}}
+\def\cB{{\cal B}}
+\def\cC{{\cal C}}
+\def\cD{{\cal D}}
+\def\cE{{\cal E}}
+\def\cF{{\cal F}}
+\def\cG{{\cal G}}
+\def\cH{{\cal H}}
+\def\cI{{\cal I}}
+\def\cJ{{\cal J}}
+\def\cK{{\cal K}}
+\def\cL{{\cal L}}
+\def\cM{{\cal M}}
+\def\cN{{\cal N}}
+\def\cO{{\cal O}}
+\def\cP{{\cal P}}
+\def\cQ{{\cal Q}}
+\def\cR{{\cal R}}
+\def\cS{{\cal S}}
+\def\cT{{\cal T}}
+\def\cU{{\cal U}}
+\def\cV{{\cal V}}
+\def\cW{{\cal W}}
+\def\cX{{\cal X}}
+\def\cY{{\cal Y}}
+\def\cZ{{\cal Z}}
+%%%%%%%%%%%%%%%%%
+
+\def\veca{\vc{a}}
+\def\vecb{\vc{b}}
+\def\vecc{\vc{c}}
+\def\vecd{\vc{d}}
+\def\vece{\vc{e}}
+\def\vecm{\vc{m}}
+\def\vecr{\vc{r}}
+\def\vecs{\vc{s}}
+\def\vect{\vc{t}}
+\def\vecv{\vc{v}}
+\def\vecx{\vc{x}}
+\def\vecy{\vc{y}}
+
+\def\A{\mathcal{A}}
+\def\B{\mathcal{B}}
+\def\C{\mathcal{C}}
+\def\D{\mathcal{D}}
+\def\E{\mathcal{E}}
+\def\I{\mathcal{I}}
+\def\K{\mathcal{K}}
+\def\M{\mathcal{M}}
+\def\T{\mathcal{T}}
+\def\U{\mathcal{U}}
+
+
+\def\Z{\mathbb{Z}}
+\def\N{\mathbb{N}}
+\def\R{\mathbb{R}}
+\def\Q{\mathbb{Q}}
+\def\F{\mathbb{F}}
+\def\P{\mathbb{P}}
+
+\def\bbC{{\mathbb C}}
+\def\bbE{{\mathbb E}}
+\def\bbF{{\mathbb F}}
+\def\bbG{{\mathbb G}}
+\def\bbM{{\mathbb M}}
+\def\bbN{{\mathbb N}}
+\def\bbQ{{\mathbb Q}}
+\def\bbR{{\mathbb R}}
+\def\bbV{{\mathbb V}}
+\def\bbZ{{\mathbb Z}}
+
+\def\tE{\widetilde{E}}
+\def\trho{\widetilde{\rho}}
+\def\tpi{\widetilde{\pi}}
+
+
+\def\Zq{\bbZ_q}
+\def\Zp{\bbZ_p}
+
+
+\newcommand{\hvcs}{\hat{\vc{s}}}
+\newcommand{\hmxA}{\hat{\mx{A}}}
+\newcommand{\hvce}{\hat{\vc{e}}}
+\newcommand{\hvcb}{\hat{\vc{b}}}
+\newcommand{\he}{{\hat{e}}}
+\newcommand{\heta}{{\hat{\eta}}}
+\newcommand{\hpsi}{{\hat{\psi}}}
+\newcommand{\hPsi}{{\hat{\Psi}}}
+\newcommand{\hchi}{{\hat{\chi}}}
+\newcommand{\hvcv}{{\hat{\vc{v}}}}
+\newcommand{\hw}{{\hat{w}}}
+\newcommand{\hvca}{{\hat{\vc{a}}}}
+\newcommand{\hb}{{\hat{b}}}
+\newcommand{\hB}{{\hat{B}}}
+\newcommand{\homega}{{\hat{\omega}}}
+
+\newcommand{\eps}{\varepsilon}
+
+% enclosers
+
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\round}[1]{\left\lfloor #1 \right\rceil}
+\newcommand{\ip}[1]{\left\langle #1 \right\rangle}
+
+
+
+% Other short-hands
+
+
+\def\pmset{\{\pm 1\}}
+\def\ind{\mathbbm{1}}
+%\def\ind{\mathbf{1}}
+
+\newcommand{\abs}[1]{\left\vert {#1} \right\vert}
+\newcommand{\norm}[1]{\left\| {#1} \right\|}
+\newcommand{\twonorm}[1]{\left\| {#1} \right\|_2}
+\newcommand{\norminf}[1]{\left\| {#1} \right\|_{\infty}}
+
+
+% Assignments
+\def\getsr{\stackrel{\scriptscriptstyle{\$}}{\gets}}
+\def\getsd{{:=}}
+%\def\bydef{\stackrel{.}{=}}
+\def\bydef{\triangleq}
+\def\getsf{{\gets}}
+\newcommand{\rand}{\getsr}
+
+
+\newcommand{\leftprotarrow}[2]{\xleftarrow{\makebox[#1]{#2}}}
+\newcommand{\rightprotarrow}[2]{\xrightarrow{\makebox[#1]{#2}}}
+\newcommand{\protarrow}[2]{\xleftrightarrow{\makebox[#1]{#2}}}
+\newcommand{\getshook}{\scalebox{1.2}{\rotatebox[origin=c]{90}{$\Rsh$}}\ }
+
+
+% Asymptotics
+
+\def\poly{{\rm poly}}
+\def\polylog{{\rm polylog}}
+\def\polyloglog{{\rm polyloglog}}
+\def\negl{{\rm negl}}
+\newcommand{\ppt}{\mbox{{\sc ppt}}}
+\def\Otilde{\widetilde{O}}
+
+% Indistinguishability
+\newcommand{\cind}{{\ \stackrel{c}{\approx}\ }}
+\newcommand{\compind}{\cind}
+\newcommand{\sind}{{\ \stackrel{s}{\approx}\ }}
+
+%\newcommand{\sind}[1][\epsilon]{{\ \stackrel{{#1}}{\approx}_{s}\ }}
+%\newcommand{\epssind}{{\ \stackrel{{\epsilon}}{\approx}_{s}\ }}
+
+
+% Complexity classes
+
+\def\NP{\mathbf{NP}}
+\def\Ppoly{{\mathbf{P}/\poly}}
+
+% Advantage
+\newcommand{\Adv}{\mathtt{Adv}}
+
+
+% Encryption & Co.
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Dec}{\mathsf{Dec}}
+
+% Cryptographic assumptions
+
+\newcommand{\ddh}{\mathrm{DDH}}
+\newcommand{\cdh}{\mathrm{CDH}}
+\newcommand{\dlin}{\text{\rm $d$LIN}}
+\newcommand{\lin}{\text{\rm Lin}}
+\newcommand{\sxdh}{\mathrm{SXDH}}
+\newcommand{\rsa}{\mathrm{RSA}}
+\newcommand{\sis}{\mathrm{SIS}}
+\newcommand{\XPis}{\mathrm{ISIS}}
+\newcommand{\lwe}{\mathsf{LWE}}
+\newcommand{\qr}{\mathrm{QR}}
+
+
+\newcommand{\mx}[1]{\mathbf{{#1}}}
+% \newcommand{\vc}[1]{\mathbf{{#1}}}
+\newcommand{\vc}[1]{\vec{{#1}}}
+\newcommand{\gvc}[1]{\bm{{#1}}}
+%\newcommand{\vc}[1]{\gvc{{#1}}}
+
+\newcommand{\zo}{\{0,1\}}
+
+% Probability
+
+\newcommand{\Ex}{\mathop{\bbE}}
+\newcommand{\cov}{\mathop{\text{\rm Cov}}}
+
+%\newcommand{\sd}{\mathop{\text{\tt dist}}}
+\newcommand{\sd}{\mathop{\Delta}}
+
+
+
+% Cryptographic elements
+
+\newcommand{\evk}{\mathsf{evk}}
+\newcommand{\pp}{{pp}}
+\newcommand{\vk}{{vk}}
+\newcommand{\td}{{td}}
+
+\def\PK{\mathsf{PK}}
+\def\MPK{\mathsf{MPK}}
+\def\MSK{\mathsf{MSK}}
+\def\SK{\mathsf{SK}}
+\def\bydef{:=}
+
+\newcommand{\prf}{{{\mathtt{prf}}}}
+\newcommand{\prp}{{{\mathtt{prp}}}}
+\newcommand{\tprf}{{\widetilde{\mathtt{prf}}}}
+\newcommand{\tprp}{{\widetilde{\mathtt{prp}}}}
+
+\newcommand{\zeon}{\{0, 1\}}
+
+% Primitives
+\usepackage[colorinlistoftodos]{todonotes}
+
+% \renewcommand{\max}{\mathsf{max}}
+
+\newcommand{\gf}{{\text{GF}}}
+
+\newcommand{\zset}[1]{\{0, \ldots, {#1}\}}
+\newcommand{\oset}[1]{\{1, \ldots, {#1}\}}
+
+
+\newcommand{\tab}{\ \ \ }
+\newcommand{\ttab}{\ \ \ \ \ \ }
+\newcommand{\tttab}{\ \ \ \ \ \ \ \ \ }
+
+
+\newcommand{\sk}{\mathsf{sk}}
+\newcommand{\pk}{\mathsf{pk}}
+
+
+\newcommand{\xref}[1]{Section~\ref{#1}}
+\newcommand{\fig}[1]{Figure~\ref{#1}}
+
+% Compact itemize and enumerate.  Note that they use the same counters and
+% symbols as the usual itemize and enumerate environments.
+\makeatletter
+\def\compactify{\itemsep=3pt plus3pt \topsep=3pt plus3pt \partopsep=0pt
+\parsep=0pt \leftmargin=1.3em}
+\let\latexusecounter=\usecounter
+\def\CompactItemize{%
+  \ifnum \@itemdepth >\thr@@\@toodeep\else
+    \advance\@itemdepth\@ne
+    \edef\@itemitem{labelitem\romannumeral\the\@itemdepth}%
+    \expandafter
+    \list
+      \csname\@itemitem\endcsname
+      {\compactify\def\makelabel##1{\hss\llap{##1}}}%
+  \fi}
+\let\endCompactItemize\endlist
+\newenvironment{CompactEnumerate}
+  {\def\usecounter{\compactify\latexusecounter}
+   \begin{enumerate}}
+  {\end{enumerate}\let\usecounter=\latexusecounter}
+\makeatother
+

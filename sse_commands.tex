@@ -1,0 +1,184 @@
+%!TEX root = main.tex
+
+\newcommand{\DB}{\mathsf{DB}}
+\newcommand{\HistDB}{\mathsf{HistDB}}
+\newcommand{\Hist}{\mathsf{Hist}}
+\newcommand{\UpHist}{\mathsf{UpHist}}
+\newcommand{\EDB}{\mathsf{EDB}}
+\newcommand{\SSE}{\mathsf{SSE}}
+\renewcommand{\ind}{\mathsf{ind}}
+\newcommand{\W}{\mathsf{W}}
+\newcommand{\EDBSetup}{\mathsf{EDBSetup}}
+\newcommand{\Setup}{\mathsf{Setup}}
+\newcommand{\Search}{\mathsf{Search}}
+\newcommand{\Retrieve}{\mathsf{Retrieve}}
+\newcommand{\Update}{\mathsf{Update}}
+\newcommand{\Verify}{\mathsf{Verify}}
+\newcommand{\VerifySearch}{\Verify\Search}
+\newcommand{\VerifyUpdate}{\Verify\Update}
+\newcommand{\Challenge}{\mathsf{Challenge}}
+
+\newcommand{\Lookup}{\mathsf{Lookup}}
+\newcommand{\Query}{\mathsf{Query}}
+
+
+\newcommand{\ACCEPT}{\mathtt{ACCEPT}}
+\newcommand{\REJECT}{\mathtt{REJECT}}
+
+\newcommand{\TSet}{\mathsf{TSet}}
+\newcommand{\ESet}{\mathsf{ESet}}
+\newcommand{\XTable}{\mathsf{XTable}}
+\newcommand{\stag}{\mathsf{stag}}
+\newcommand{\token}{\mathsf{token}}
+\newcommand{\xtoken}{\mathsf{xtoken}}
+
+\newcommand{\BF}{\mathsf{BF}}
+\newcommand{\UpTable}{\mathsf{UpTable}}
+
+\newcommand{\TSetSetup}{\mathsf{TSetSetup}}
+\newcommand{\TSetGetTag}{\mathsf{TSetGetTag}}
+\newcommand{\TSetRetrieve}{\mathsf{TSetRetrieve}}
+\newcommand{\TSetDecrypt}{\mathsf{TSetDecrypt}}
+\newcommand{\TSetSearch}{\mathsf{TSetSearch}}
+\newcommand{\TSetUpdate}{\mathsf{TSetUpdate}}
+
+\newcommand{\ESetSetup}{\mathsf{ESetSetup}}
+\newcommand{\ESetGetToken}{\mathsf{ESetGetToken}}
+\newcommand{\ESetRetrieve}{\mathsf{ESetRetrieve}}
+\newcommand{\ESetDecrypt}{\mathsf{ESetDecrypt}}
+\newcommand{\ESetUpdate}{\mathsf{ESetUpdate}}
+
+\newcommand{\CounterSetup}{\mathsf{CounterSetup}}
+\newcommand{\CounterToken}{\mathsf{CounterToken}}
+\newcommand{\CounterGet}{\mathsf{CounterGet}}
+\newcommand{\CounterVerify}{\mathsf{CounterVerify}}
+
+\newcommand{\VHT}{\mathsf{VHT}}
+\newcommand{\VHTSetup}{\mathsf{VHTSetup}}
+\newcommand{\VHTGet}{\mathsf{VHTGet}}
+\newcommand{\VHTVerify}{\mathsf{VHTVerify}}
+\newcommand{\VHTUpdate}{\mathsf{VHTUpdate}}
+\newcommand{\VHTRefresh}{\mathsf{VHTRefresh}}
+\newcommand{\hkey}{\mathsf{hkey}}
+
+\newcommand{\Find}{\mathsf{Find}}
+
+
+\newcommand{\Init}{\mathsf{Init}}
+\newcommand{\Final}{\mathsf{Final}}
+\newcommand{\op}{\mathsf{op}}
+\newcommand{\add}{\mathsf{add}}
+\newcommand{\del}{\mathsf{del}}
+\newcommand{\edit}{\mathsf{edit}}
+\newcommand{\opin}{\mathsf{in}}
+\newcommand{\data}{\mathsf{data}}
+
+\newcommand{\KeyGen}{\mathsf{KeyGen}}
+
+%% ORAM %%
+\newcommand{\PosMap}{\mathsf{PosMap}}
+\newcommand{\BucketMap}{\mathsf{BucketMap}}
+\newcommand{\Stash}{\mathsf{Stash}}
+\newcommand{\opread}{\mathsf{read}}
+\newcommand{\opwrite}{\mathsf{write}}
+\newcommand{\rnd}{\mathsf{round}}
+\newcommand{\addr}{\mathsf{addr}}
+% \newcommand{\block}{\mathsf{block}}
+
+\newcommand{\EvictPath}{\textsc{EvictPath}}
+\newcommand{\ReadBucket}{\textsc{ReadBucket}}
+\newcommand{\WriteBucket}{\textsc{WriteBucket}}
+
+\newcommand{\DirectORAM}{\textsc{DirectORAM}}
+
+\newcommand{\qp}{\mathsf{qp}}
+\renewcommand{\sp}{\mathsf{sp}}
+
+\newcommand{\bad}{\mathsf{bad}}
+\newcommand{\true}{\mathsf{true}}
+\newcommand{\false}{\mathsf{false}}
+
+
+\newcommand{\arrT}{\mathbf{T}}
+\newcommand{\arrt}{\mathbf{t}}
+
+\renewcommand{\L}{\mathcal{L}}
+
+\newcommand{\vecq}{\mathbf{q}}
+\newcommand{\vecw}{\mathbf{w}}
+
+
+\newcommand{\SP}{\mathsf{SP}}
+\newcommand{\RP}{\mathsf{RP}}
+\newcommand{\IP}{\mathsf{IP}}
+% \newcommand{\IS}{\mathsf{IS}}
+\newcommand{\XP}{\mathsf{XP}}
+\newcommand{\IE}{\mathsf{IE}}
+\newcommand{\tIE}{\widetilde{\mathsf{IE}}}
+\newcommand{\bIE}{\overline{\mathsf{IE}}}
+\newcommand{\X}{\mathsf{XTokens}}
+
+\newcommand{\parts}{\mathcal{P}}
+
+\def\Adv{{\bf Adv}}
+\def\AdvCor{{\bf AdvCor}}
+\def\AdvConf{{\bf AdvConf}}
+\def\AdvComp{{\bf AdvComp}}
+\def\AdvSound{{\bf AdvSnd}}
+\def\AdvColl{{\bf AdvColl}}
+
+\newcommand{\FSMKSE}{\textbf{FSMKSE}}
+\newcommand{\CXT}{\ensuremath{ \mathsf{CXT}}}
+\newcommand{\CXXT}{\ensuremath{ \mathsf{CXXT}}}
+\newcommand{\OXT}{\ensuremath{ \mathsf{OXT}}}
+\newcommand{\GSV}{\ensuremath{ \mathsf{GSV}}}
+\newcommand{\Real}{\mathbf{Real}}
+\newcommand{\Ideal}{\mathbf{Ideal}}
+
+\newcommand{\Perms}{\textsf{Perms}}
+\newcommand{\WPerms}{\textsf{WPerms}}
+
+\newcommand{\Chi}{\text{\large{$\chi$}}}
+\newcommand{\lpi}{\text{\Large{$\pi$}}}
+
+\newcommand{\SPS}{\mathsf{SPS}}
+\newcommand{\VSPS}{{\mathsf{Verif}\text{-}\mathsf{SPS}}}
+\newcommand{\MAC}{\mathsf{MAC}}
+\newcommand{\AEnc}{\mathsf{AEnc}}
+\newcommand{\ADec}{\mathsf{ADec}}
+
+\newcommand{\AllHoles}{\mathsf{AllHoles}}
+\newcommand{\VerifyHoles}{\mathsf{VerifyHoles}}
+\newcommand{\CheckResults}{\mathsf{CheckResults}}
+\newcommand{\ProveHoles}{\mathsf{ProveHoles}}
+\newcommand{\Holes}{\mathsf{Holes}}
+\newcommand{\ProcessLevel}{\mathsf{ProcessLevel}}
+
+\def\prove{{\rm prf}}
+\def\check{{\rm chk}}
+\def\build{{\rm build}}
+
+\newcommand{\Stp}{\mathsf{Stp}}
+\newcommand{\Srch}{\mathsf{Srch}}
+\newcommand{\Ret}{\mathsf{Ret}}
+\newcommand{\Updt}{\mathsf{Updt}}
+
+\def\gettrans{\stackrel{\scriptscriptstyle{\mathsf{trans}}}{\gets}}
+
+\newcommand{\mask}{\mathtt{mask}}
+
+\newcommand{\sophos}{{\Sigma o\phi o\varsigma}}
+
+\newcommand{\comment}[1]{\textcolor{red}{\bf #1}}
+
+\newcommand{\type}{\mathsf{type}}
+\newcommand{\param}{\mathsf{param}}
+
+
+\newcommand{\cDB}{\mathcal{DB}}
+% \newcommand{\tf}{\widetilde{f}}
+% \newcommand{\tbf}{\widetilde{\mathbf{f}}}
+\newcommand{\be}{{\mathbf{e}}}
+\newcommand{\te}{\widetilde{e}}
+
+\DeclareMathOperator*{\var}{\mathbb{V}ar}

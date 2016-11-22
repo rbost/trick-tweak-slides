@@ -1,0 +1,21 @@
+*.log
+# *.pdf
+*.aux
+*.out
+*.synctex.gz
+.*.lb
+*.bbl
+*.blg
+*.tdo
+.DS_Store
+
+
+# beamer
+*.nav
+*.toc
+*.snm
+
+*.fdb_latexmk
+*.fls
+
+main.pdf

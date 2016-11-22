@@ -1,0 +1,22 @@
+%!TEX root = ../main.tex
+
+\tikzstyle{GW}=[draw,rectangle,minimum height=2em,inner sep=3pt,thin]
+\tikzstyle{SW}=[draw,rectangle,minimum height=1.25em,inner sep=1pt,thin]
+\tikzstyle{XOR}=[inner sep=0pt]
+
+	\begin{scope}
+		\node (m) {$M$};
+		\node[XOR, below=0.5cm of m] (xor){$\bigoplus$};
+		
+		\node[XOR, left=0.5cm of xor] (delta) {$\Delta^N_{i,j}$};
+
+		\node[GW, below=0.5cm of xor] (e){$E_K$};
+		\node[XOR, below=0.5cm of e] (c){C};
+
+
+		\draw  (m) -- (xor);
+		\draw (delta) -- (xor);  	
+		\draw[->] (xor) -- (e);
+		\draw (e) -- (c);
+	\end{scope}
+  
