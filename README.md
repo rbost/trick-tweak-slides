@@ -7,5 +7,6 @@ The presented paper -- *Trick or Tweak: On the (In)security of OTR's Tweaks* -- 
 
 License
 -------
+This work by Raphael Bost & Olivier Sanders is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/).
 
-The slides are available under the CC-BY-NC license.
+[![Creative Commons License](https://i.creativecommons.org/l/by-nc/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc/4.0/)
