@@ -55,10 +55,9 @@
 	     \column{.6\textwidth}
 		\begin{itemize}
 			\item CAESAR submission by K. Minematsu (Eurocrypt '14)
-			\item Inspired by OCB
 			\item Rate-1 AE
 			\item Tweakable blockcipher based
-			\item Inverse-free (only needs $E$, not $E^{-1}$)
+			\item Inverse-free version of OCB \\(only needs $E$, not $E^{-1}$)
 			\item Two rounds Feistel construction
 			\item Defined for any block size $n$.
 		\end{itemize}
@@ -159,24 +158,27 @@
 			We are working in $\F_{2^n}$ represented as $\F_2[X]/(P(X))$ with $P$ is a degree $n$ primitive polynomial in $\F_2$.
 		\end{alertblock}
 
-	    \begin{columns}
-	     \column{.8\textwidth}
-	\begin{itemize}
-		\item Use the XE construction
+		\begin{columns}
+			\column{.8\textwidth}
+			\begin{itemize}
+				\item Use the XE construction: $\tE^{N,i,j}_{K}(M) = E_K(M + \Delta^N_{i,j})$
 	
-		\item In {[Rog04]}: $\tE^{N,i,j}_{K}(M) = E_K(M + X^i (X+1)^j \delta)$ with $\delta = E_K(N)$
+				\item In {[Rog04]}: $\Delta^N_{i,j} = X^i (X+1)^j \delta$ with $\delta = E_K(N)$ \\
+				\begin{align*}
+					\Delta^N_{i+1,j} &= X \cdot \Delta^N_{i,j} \\
+					\Delta^N_{i,j+1} &= (X+1) \cdot \Delta^N_{i,j}
+					\end{align*}		
 		
-		
-	\end{itemize}
-	     \column{.2\textwidth}
-					\begin{tikzpicture}[
-						scale=1,
-						node distance=1.8cm,
-						line width = 0.5pt,
+				\end{itemize}
+				\column{.2\textwidth}
+				\begin{tikzpicture}[
+					scale=1,
+					node distance=1.8cm,
+					line width = 0.5pt,
 					]
-						\input{figs/XE.tex}
-					\end{tikzpicture}
-		\end{columns}
+					\input{figs/XE.tex}
+				\end{tikzpicture}
+			\end{columns}
 	\end{frame}
 
 	\begin{frame}
@@ -186,28 +188,33 @@
 			We are working in $\F_{2^n}$ represented as $\F_2[X]/(P(X))$ with $P$ is a degree $n$ primitive polynomial in $\F_2$.
 		\end{alertblock}
 
-	    \begin{columns}
-	     \column{.8\textwidth}
+		\begin{columns}
+			\column{.8\textwidth}
 		 
-		 In OTRv1-v2 {[Min14]}, for efficiency, an other masking scheme is used:
-		 % \begin{align*}
-		 %    		 	\tE^{N,i,b}_{K}(M) &= E_K(M + (X^{i+1} + b) \delta) \\
-		 %    		 	\tE^{*,N,i,b_1,b_2}_{K}(M) &= E_K(M + [(X+1)X^{\ell+1} + X\cdot b_1 +b_1 +b_2]\delta) \\
-		 % \end{align*}
-		 \begin{align*}
-   		 	\Delta^{N}_{i,b} &= (X^{i+1} + b) \delta \\
-   		 	\Delta^{*,N}_{\ell,b_1,b_2} &= [(X+1)X^{\ell+1} + X\cdot b_1 +b_1 +b_2]\delta \\
-		 \end{align*}
+			In OTRv1-v2 {[Min14]}, for efficiency, an other masking scheme is used:
+			% \begin{align*}
+			%    		 	\tE^{N,i,b}_{K}(M) &= E_K(M + (X^{i+1} + b) \delta) \\
+			%    		 	\tE^{*,N,i,b_1,b_2}_{K}(M) &= E_K(M + [(X+1)X^{\ell+1} + X\cdot b_1 +b_1 +b_2]\delta) \\
+			% \end{align*}
+			\begin{align*}
+				\Delta^{N}_{i,b} &= (X^{i+1} + b) \delta \\
+				\Delta^{*,N}_{\ell,b_1,b_2} &= [(X+1)X^{\ell+1} + X\cdot b_1 +b_1 +b_2]\delta \\
+				&\\
+				\Delta^N_{i+1,0} &= X \cdot \Delta^N_{i,0} \\
+				\Delta^N_{i,1} &= \Delta^N_{i,0} + \delta
+			\end{align*}
+			% \begin{align*}
+			% \end{align*}
 
-	     \column{.2\textwidth}
-					\begin{tikzpicture}[
-						scale=1,
-						node distance=1.8cm,
-						line width = 0.5pt,
+				\column{.2\textwidth}
+				\begin{tikzpicture}[
+					scale=1,
+					node distance=1.8cm,
+					line width = 0.5pt,
 					]
-						\input{figs/XE.tex}
-					\end{tikzpicture}
-		\end{columns}
+					\input{figs/XE.tex}
+				\end{tikzpicture}
+			\end{columns}
 	\end{frame}
 
 	\begin{frame}
@@ -236,8 +243,8 @@
 		\frametitle{The trick}
 
 		\begin{itemize}
-			\item In [Rog04], for $\log_X (X+1) = \alpha$, as long as $0 \leq i + \alpha j \leq 2^{n}-1$, $\{X^i (X+1)^j\}$ are pairwise distinct 
-			\\ \tab $\Rightarrow$ bound $i$ and $j$.
+			\item In [Rog04], bound $i$ and $j$, so that $i + \alpha j$ are all different, with $\alpha = \log_X (X+1)$  
+			\\ \tab $\Rightarrow$ $\{X^i (X+1)^j\}$ are pairwise distinct.
 			
 			\item<2-> In [Min14], we cannot show that, for some $q$, elements are pairwise distinct in 
 				\[
@@ -245,6 +252,8 @@
 				\]
 		
 			\item<3-> If $P(X) = X^n + X^j + 1$, there is a collision between $X^n$ and $X^j + 1$ in $\F_{2^n} = \F_2[X]/(P(X))$.
+			
+			\item<4-> For more than half of $n \leq 10 000$, there is an irreducible trinomial $P$.
 		\end{itemize}
 	\end{frame}
 
@@ -334,6 +343,8 @@ Does the unforgeability of OTR break?
 		Idea: use the collision to have relations between block cipher's inputs and create collisions on the outputs.
 		
 		Only \emph{one} query to the encryption oracle, with a message of $\max(i,j)$ blocks.
+		
+		For $n = 64$: $1kB$ message. 
 	\end{frame}
 
 
@@ -445,7 +456,7 @@ We used time/memory tradeoffs to search for any collision with $i, j < 2^{45}$.
 			\item OTRv2 is insecure for many block sizes.
 			\item OTRv2 is secure for $n = 128$ when the message length is limited to $2^{45}$ blocks.
 			\item OTRv2 is probably secure for $n = 128$ almost up to the birthday bound.
-			\item OTRv3 fixes the issue.
+			\item OTRv3 fixes the issue (using masks from [Rog04]).
 		\end{itemize}
 	\end{frame}
 
